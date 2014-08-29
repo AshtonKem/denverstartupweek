@@ -64,8 +64,11 @@
             <li>12k+ RSpec examples</li>
             <li>39k lines of Javascript</li>
             <li>7k+ Jasmine Examples</li>
-            <li>3 dedicated QA personnel</li>
+            <li>3 dedicated QA personnel + 1 on support</li>
           </ul>
+          <aside class="notes">
+            Don't forget to mention Jo, who is giving a talk on Support at Galvanize Friday at 8AM.
+          </aside>
         </section>
         <section>
           <h2>What's TDD good at?</h2>
@@ -94,6 +97,9 @@
           <section>
             <h2>A New Way</h2>
             <h3>Generative Tests</h3>
+            <aside class="notes">
+              Generative testing is a supplement, but not replacement for unit/integration tests.
+            </aside>
           </section>
           <section>
             <h2>Parts of a unit test</h2>
@@ -102,6 +108,9 @@
               <li>Function(s) under test</li>
               <li>Assertions</li>
             </ol>
+            <aside class="notes">
+              Data = fixtures + setup.
+            </aside>
           </section>
           <section>
             <h2>Generative Parts</h2>
@@ -110,6 +119,9 @@
               <li>Function(s) under test</li>
               <li>General assertions (invariants)</li>
             </ol>
+            <aside class="notes">
+              We will go over these generators better in a bit.
+            </aside>
           </section>
           <section>
             <h2>Common Properties</h2>
@@ -188,7 +200,102 @@ describe("when items are swapped", function() {
 });
 
 </code></pre>
+
             <p>Can you spot the problem?</p>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <pre><code data-trim>
+(defspec sort-check 100
+  (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
+           (let [models (create-models v)
+                 sorted (sort v)
+                 subject (tracker.PanelItems.)]
+             (.reset subject (apply array models))
+             (.refresh subject (apply array (sort-by #(.get % :id) models)))
+             (is (= sorted
+                    (ids subject))))))
+            </code></pre>
+            <p>Okay, let's go over that bit by bit.</p>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>Function Call</p>
+            <pre><code>
+(defspec sort-check 100
+...)
+            </code></pre>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>Vector literal syntax</p>
+            <pre><code data-trim>
+(...
+  [v (gen/such-that gen/not-empty (gen/vector gen/int))]
+...)
+            </code></pre>
+            <aside class="notes">
+              Mention the ubiquity of the binding form.
+            </aside>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>Function call with binding form</p>
+            <pre><code data-trim>
+(...
+  (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
+           ...))
+            </code></pre>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>Let, for assigning variables</p>
+            <pre><code data-trim>
+(...
+  (let [models (create-models v)
+       sorted (sort v)
+       subject (tracker.PanelItems.)]
+...))
+            </code></pre>
+            <aside class="notes">
+              Another binding form
+              Ability to reference previous values.
+              Compare to a var
+              Immutability
+            </aside>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>Actual function under test and assertion</p>
+            <pre><code data-trim>
+(...
+  (.reset subject (apply array models))
+  (.refresh subject (apply array (sort-by #(.get % :id) models)))
+  (is (= sorted
+      (ids subject))))
+            </code></pre>
+            <aside class="notes">
+              Mention that the "is" call is the assertion
+            </aside>
+          </section>
+          <section>
+            <h2>A Generative Test</h2>
+            <p>The whole thing again</p>
+            <pre><code data-trim>
+(defspec sort-check 100
+  (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
+           (let [models (create-models v)
+                 sorted (sort v)
+                 subject (tracker.PanelItems.)]
+             (.reset subject (apply array models))
+             (.refresh subject (apply array (sort-by #(.get % :id) models)))
+             (is (= sorted
+                    (ids subject))))))
+            </code></pre>
+            <aside class="notes">
+              Explain why the random & sort.
+              Input data that completely explains the test for repeatability
+            </aside>
           </section>
         </section>
       </div>
@@ -208,7 +315,7 @@ describe("when items are swapped", function() {
       center: true,
 
       theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-      transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
       // Parallax scrolling
       // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
