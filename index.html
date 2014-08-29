@@ -289,6 +289,33 @@ describe("when items are swapped", function() {
               Input data that completely explains the test for repeatability
             </aside>
           </section>
+          <section>
+            <h2>Capturing Bugs</h2>
+            <pre><code data-trim>
+{:result :false
+ :failing-size 10
+ :num-tests 11
+ :fail [[10 6 -5 -1 -7 2]]
+ :shrunk {:total-nodes-visited 49
+          :depth 11
+          :result false
+          :smallest [[0 0 -1]]}
+ :test-var sort-check}
+            </code></pre>
+            <aside class="notes">
+              Give a ton of attention to :shrunk and :smallest. Explain how it works
+            </aside>
+          </section>
+        </section>
+        <section>
+          <h2>That's neat, but I use Ruby</h2>
+          <p>Good news!</p>
+          <ul>
+            <li class="fragment">Clojurescript</li>
+            <li class="fragment">JDBC</li>
+            <li class="fragment">APIs</li>
+            <li class="fragment">Selenium</li>
+          </ul>
         </section>
       </div>
     </div>
