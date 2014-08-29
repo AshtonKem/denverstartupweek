@@ -159,6 +159,38 @@
             </ul>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>Example Time</h2>
+            <p>Minimal Real World Example</p>
+          </section>
+          <section>
+            <h2>Rendering Optimization</h2>
+            <ul>
+              <li>Intelligent diff tool</li>
+              <li>Faster render times</li>
+              <li>Bugs in the non-trivial case</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Samle Test</h2>
+            <pre><code class="javascript" data-trim contenteditable>
+describe("when items are swapped", function() {
+  it("it should reorder itself", function() {
+    var items = createItems(3),
+        reorderSpy = jasmine.createSpy('reorder spy');
+    subject.reset([items[0], items[1], items[2]]);
+
+    subject.on('reorder', reorderSpy);
+    subject.refresh([items[1], items[0], items[2]]);
+    expect(subject.pluck('id')).toEqual([1, 0, 2]);
+  });
+});
+
+</code></pre>
+            <p>Can you spot the problem?</p>
+          </section>
+        </section>
       </div>
     </div>
 
