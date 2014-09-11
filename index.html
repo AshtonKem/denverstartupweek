@@ -208,13 +208,13 @@ describe("when items are swapped", function() {
             <pre><code data-trim>
 (defspec sort-check 100
   (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
-           (let [models (create-models v)
-                 sorted (sort v)
-                 subject (tracker.PanelItems.)]
-             (.reset subject (apply array models))
-             (.refresh subject (apply array (sort-by #(.get % :id) models)))
-             (is (= sorted
-                    (ids subject))))))
+    (let [models (create-models v)
+          sorted (sort v)
+          subject (tracker.PanelItems.)]
+      (.reset subject (apply array models))
+      (.refresh subject (apply array (sort-by #(.get % :id) models)))
+      (is (= sorted
+          (ids subject))))))
             </code></pre>
             <p>Okay, let's go over that bit by bit.</p>
           </section>
@@ -263,8 +263,8 @@ describe("when items are swapped", function() {
             <pre><code data-trim>
 (...
   (let [models (create-models v)
-       sorted (sort v)
-       subject (tracker.PanelItems.)]
+        sorted (sort v)
+        subject (tracker.PanelItems.)]
 ...))
             </code></pre>
             <aside class="notes">
@@ -295,13 +295,13 @@ describe("when items are swapped", function() {
             <pre><code data-trim>
 (defspec sort-check 100
   (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
-           (let [models (create-models v)
-                 sorted (sort v)
-                 subject (tracker.PanelItems.)]
-             (.reset subject (apply array models))
-             (.refresh subject (apply array (sort-by #(.get % :id) models)))
-             (is (= sorted
-                    (ids subject))))))
+    (let [models (create-models v)
+          sorted (sort v)
+          subject (tracker.PanelItems.)]
+      (.reset subject (apply array models))
+      (.refresh subject (apply array (sort-by #(.get % :id) models)))
+      (is (= sorted
+          (ids subject))))))
             </code></pre>
             <aside class="notes">
               Explain why the random & sort.
