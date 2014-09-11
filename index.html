@@ -368,6 +368,58 @@ describe("when items are swapped", function() {
           </section>
         </section>
         <section>
+          <h2>The Biggest of All Generators</h2>
+          <pre style="left: -78px;"><code class="javascript" data-trim contenteditable style="font-size: 13px; line-height: 13px; width: 120%; max-height: 200%;">
+(gen/not-empty (gen/vector (gen/one-of
+                              [(gen/hash-map :name gen/string-alpha-numeric
+                                             :estimate (gen/elements [0 1 2 3])
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :story_type (gen/elements ["feature" "bug" "chore" "release"])
+                                             :accepted_at (gen/frequency
+                                                            [[7 (gen/bind (gen/choose 1136073600000 (.getTime (Date.)))
+                                                                    (fn [millis] (gen/return (Date. millis))))]
+                                                             [3 (gen/return (Date. 1271372796000))]])
+                                             :project_id (gen/return project-id)
+                                             :current_state (gen/return "accepted"))
+                               (gen/hash-map :name gen/string-alpha-numeric
+                                             :estimate (gen/elements [0 1 2 3])
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :story_type (gen/return "feature")
+                                             :project_id (gen/return project-id)
+                                             :current_state (gen/elements ["rejected" "delivered" "finished" "started" "unstarted"]))
+                               (gen/hash-map :name gen/string-alpha-numeric
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :estimate (gen/return -1)
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :project_id (gen/return project-id)
+                                             :story_type (gen/return "bug")
+                                             :current_state (gen/elements ["rejected" "delivered" "finished" "started" "unstarted"]))
+                               (gen/hash-map :name gen/string-alpha-numeric
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :estimate (gen/return -1)
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :project_id (gen/return project-id)
+                                             :story_type (gen/return "chore")
+                                             :current_state (gen/elements ["started" "unstarted"]))
+                               (gen/hash-map :name gen/string-alpha-numeric
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :estimate (gen/return -1)
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :project_id (gen/return project-id)
+                                             :story_type (gen/return "release")
+                                             :current_state (gen/return "unstarted"))
+                               (gen/hash-map :name gen/string-alpha-numeric
+                                             :id (gen/make-gen (fn [_rand _size] (pure (swap! id-counter inc))))
+                                             :estimate (gen/return -1)
+                                             :priority (gen/make-gen (fn [_rand _size] (pure (swap! priority-counter inc))))
+                                             :project_id (gen/return project-id)
+                                             :story_type (gen/elements ["feature" "bug" "chore" "release"])
+                                             :current_state (gen/return "unscheduled"))])))
+          </code></pre>
+        </section>
+        <section>
           <h2>Questions?</h2>
         </section>
         <section>
