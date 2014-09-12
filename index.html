@@ -56,6 +56,9 @@
             <li>ashtonkemerling.com</li>
             <li>@ashton</li>
           </ul>
+          <aside class="notes">
+            "a project management tool for software teams".
+          </aside>
         </section>
         <section>
           <section>
@@ -89,7 +92,11 @@
               <li>Bug hunting</li>
             </ul>
             <aside class="notes">
-              Bug hunting when the reproduction steps are unclear, or concurrency is involved.
+              <ul>
+                <li>Known problem area</li>
+                <li>No reproduction steps</li>
+                <li>Concurrency</li>
+              </ul>
             </aside>
           </section>
         </section>
@@ -107,6 +114,7 @@
             <h3>Generative Tests</h3>
             <aside class="notes">
               Generative testing is a supplement, but not replacement for unit/integration tests.
+              Both are recommended.
             </aside>
           </section>
           <section>
@@ -169,6 +177,9 @@
               <li>Macros</li>
               <li>Fun!</li>
             </ul>
+            <aside class="notes">
+              We won't cover how macros work, just that they make for awesome DSLs.
+            </aside>
           </section>
         </section>
         <section>
@@ -202,6 +213,9 @@ describe("when items are swapped", function() {
 </code></pre>
 
             <p>Can you spot the problem?</p>
+            <aside class="notes">
+              Don't focus on the specifics, just what it's trying to test: ordering.
+            </aside>
           </section>
           <section>
             <h2>A Generative Test</h2>
@@ -234,7 +248,9 @@ describe("when items are swapped", function() {
   gen/such-that
 ...)
             </code></pre>
-
+            <aside class="notes">
+              Namespace before the slash, symbol/function after.
+            </aside>
           </section>
           <section>
             <h2>A Generative Test</h2>
@@ -256,6 +272,9 @@ describe("when items are swapped", function() {
   (for-all [v (gen/such-that gen/not-empty (gen/vector gen/int))]
            ...))
             </code></pre>
+            <aside class="notes">
+              Binding form with the "for-all" function doing magic with it.
+            </aside>
           </section>
           <section>
             <h2>A Generative Test</h2>
@@ -268,11 +287,11 @@ describe("when items are swapped", function() {
 ...))
             </code></pre>
             <aside class="notes">
-              Another binding form
-              Ability to reference previous values.
-              Compare to a var
-              Immutability
-              Mention class construction
+              <ul>
+                <li>Another binding form</li>
+                <li>Less Magic</li>
+                <li>Ability to reference previous values, like "var" in JS</li>
+              </ul>
             </aside>
           </section>
           <section>
@@ -286,7 +305,8 @@ describe("when items are swapped", function() {
       (ids subject))))
             </code></pre>
             <aside class="notes">
-              Mention that the "is" call is the assertion, and that .methods belong to the object.
+              Similar logic to the test above: change order and assert it conforms to the new order.
+              "is" is an assertion.
             </aside>
           </section>
           <section>
@@ -304,7 +324,7 @@ describe("when items are swapped", function() {
           (ids subject))))))
             </code></pre>
             <aside class="notes">
-              Explain why the random & sort.
+              Explain why the random & sort (repeatable console out).
               Input data that completely explains the test for repeatability
             </aside>
           </section>
@@ -345,6 +365,9 @@ describe("when items are swapped", function() {
               <li>Clojure + HTTP + Selenium for API integration</li>
               <li>Clojure + Selenium for Browser Integration</li>
             </ul>
+            <aside class="notes">
+              We have used all of these techniques to hunt for bugs.
+            </aside>
           </section>
         </section>
         <section>
